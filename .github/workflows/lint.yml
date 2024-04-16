@@ -2,8 +2,8 @@ name: Lint code
 
 on:
   push:
-    branches:
-      - feat/*
+    paths-ignore:
+      - '**/*.md'
 
 jobs:
   test-code:
