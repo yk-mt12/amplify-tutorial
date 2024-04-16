@@ -8,8 +8,7 @@ function App() {
 
   return (
     <>
-    <p>hogehoge</p>
-    <p>fugafuga</p>
+      <p>hogehoge</p>
     </>
   )
 }
