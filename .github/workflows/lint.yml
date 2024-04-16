@@ -3,7 +3,7 @@ name: Lint code
 on:
   push:
     branches:
-      - dev
+      - feat/**/*
 
 jobs:
   test-code:
