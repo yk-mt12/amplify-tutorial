@@ -6,29 +6,30 @@ on:
       - '**/*.md'
 
 jobs:
-  test-code:
+  build:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest]
         node-version: [20]
-    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v3
+      with:
+        version: 8
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+    - name: Install dependencies
+      run: pnpm install
+
+  test-code:
+    runs-on: [ubuntu-latest]
     timeout-minutes: 10
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setting Up Pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Setting Up Node
-        uses: actions/setup-node@v4
-        with:
-          cache: pnpm
-          node-version: ${{ matrix.node-version }}
-          cache-dependency-path: ./frontend/pnpm.lock
-          
+        uses: actions/checkout@v4          
 
       - name: Installing Project Dependencies
         run: pnpm install
